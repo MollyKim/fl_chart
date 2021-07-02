@@ -47,16 +47,16 @@ class _MyHomePageState extends State<MyHomePage> {
   final _duration = Duration(milliseconds: 300);
   final _curve = Curves.easeInOutCubic;
   final _pages = [
-    LineChartPage(),
+    // LineChartPage(),
     BarChartPage(),
-    BarChartPage2(),
-    PieChartPage(),
-    LineChartPage2(),
-    LineChartPage3(),
-    LineChartPage4(),
+    // BarChartPage2(),
+    // PieChartPage(),
+    // LineChartPage2(),
+    // LineChartPage3(),
+    // LineChartPage4(),
     BarChartPage3(),
-    ScatterChartPage(),
-    RadarChartPage(),
+    // ScatterChartPage(),
+    // RadarChartPage(),
   ];
 
   bool get isDesktopOrWeb => PlatformInfo().isDesktopOS() || PlatformInfo().isWeb();
