@@ -54,25 +54,25 @@ class mineState extends State<mine> {
                       BarChartRodData(y: 14, colors: [Colors.lightBlueAccent, Colors.greenAccent])
                     ],
                   ),
-                  BarChartGroupData(
-                    x: 3,
-                    barRods: [
-                      BarChartRodData(y: 15, colors: [Colors.lightBlueAccent, Colors.greenAccent])
-                    ],
-                  ),
-                  BarChartGroupData(
-                    x: 3,
-                    barRods: [
-                      BarChartRodData(y: 13, colors: [Colors.lightBlueAccent, Colors.greenAccent])
-                    ],
-                  ),
-                  BarChartGroupData(
-                    x: 4,
-                    barRods: [
-                      BarChartRodData(y: 10, colors: [Colors.lightBlueAccent, Colors.greenAccent])
-                    ],
-                    //showingTooltipIndicators: [0], 그래프 위에 숫자 보여주는 것
-                  ),
+                  // BarChartGroupData(
+                  //   x: 3,
+                  //   barRods: [
+                  //     BarChartRodData(y: 15, colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                  //   ],
+                  // ),
+                  // BarChartGroupData(
+                  //   x: 3,
+                  //   barRods: [
+                  //     BarChartRodData(y: 13, colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                  //   ],
+                  // ),
+                  // BarChartGroupData(
+                  //   x: 4,
+                  //   barRods: [
+                  //     BarChartRodData(y: 10, colors: [Colors.lightBlueAccent, Colors.greenAccent])
+                  //   ],
+                  //   //showingTooltipIndicators: [0], 그래프 위에 숫자 보여주는 것
+                  // ),
                 ],
               ),
             ),

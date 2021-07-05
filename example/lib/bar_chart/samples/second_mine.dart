@@ -13,7 +13,7 @@ class mine2 extends StatefulWidget {
 class mine2State extends State<mine2> {
   final Duration animDuration = const Duration(milliseconds: 250);
 
-  int touchedIndex = -1; // data.length
+  int touchedIndex = 0; // data.length
 
   @override
   Widget build(BuildContext context) {
@@ -22,15 +22,28 @@ class mine2State extends State<mine2> {
       child: Card(
         elevation: 0,
         color: Colors.white,
-        child: SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: SizedBox(
-            width: 300,
-            child: BarChart(
-              mainBarData(),
-              swapAnimationDuration: animDuration,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: SizedBox(
+                  width: 300,
+                  height: 150,
+                  child: BarChart(
+                    mainBarData(),
+                    swapAnimationDuration: animDuration,
+                  ),
+                ),
+              ),
             ),
-          ),
+            Text('------------------------------------',
+              style: TextStyle(color: Colors.black),),
+          ],
         ),
       ),
     );
@@ -40,8 +53,8 @@ class mine2State extends State<mine2> {
       int x,
       double y, {
         bool isTouched = false,
-        Color barColor = Colors.lightGreen,
-        double width = 15,
+        Color barColor = Colors.lightGreen, //isTouched ? Colors.lightGreen : Colors.grey ,
+        double width = 25,
         List<int> showTooltips = const [],
       }) {
     return BarChartGroupData(
@@ -49,7 +62,7 @@ class mine2State extends State<mine2> {
       barRods: [
         BarChartRodData(
           y: y,
-          colors: [barColor],
+          colors: isTouched ? [barColor] : [Colors.grey],
           width: width,
           backDrawRodData: BackgroundBarChartRodData(show: false),
         ),
@@ -58,7 +71,53 @@ class mine2State extends State<mine2> {
     );
   }
 
-  List<BarChartGroupData> showingGroups() => List.generate(7, (i) {
+  BarChartData mainBarData() {
+    return BarChartData(
+      alignment: BarChartAlignment.start,
+      barTouchData: BarTouchData(
+        enabled: false,
+        touchCallback: (barTouchResponse) {
+          setState(() {
+            if (barTouchResponse.spot != null &&
+                barTouchResponse.touchInput is! PointerUpEvent &&
+                barTouchResponse.touchInput is! PointerExitEvent) {
+              touchedIndex = barTouchResponse.spot!.touchedBarGroupIndex;
+            }
+          });
+        },
+      ),
+      titlesData: FlTitlesData(
+        bottomTitles: SideTitles(
+          showTitles: true,
+          getTextStyles: (value) => const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 14),
+          margin: 16,
+        ),
+        leftTitles: SideTitles(showTitles: false),
+      ),
+      borderData: FlBorderData(show: false),
+      barGroups: [
+        makeGroupData(0, 5, isTouched: 0 == touchedIndex),
+        makeGroupData(0, 0),
+        makeGroupData(0, 0),
+        makeGroupData(0, 15, isTouched: 3 == touchedIndex),
+        makeGroupData(0, 0),
+        makeGroupData(0, 0),
+        makeGroupData(0, 5, isTouched: 0 == touchedIndex),
+        makeGroupData(0, 0),
+        makeGroupData(0, 0),
+        makeGroupData(0, 15, isTouched: 3 == touchedIndex),
+        makeGroupData(0, 0),
+        makeGroupData(0, 0),
+        makeGroupData(0, 10, isTouched: 6 == touchedIndex)
+      ],//showingGroups(),
+    );
+  }
+
+
+
+
+
+  List<BarChartGroupData> showingGroups() => List.generate(3, (i) {
     switch (i) {
       case 0:
         return makeGroupData(0, 5, isTouched: i == touchedIndex);
@@ -78,34 +137,4 @@ class mine2State extends State<mine2> {
         return throw Error();
     }
   });
-
-  BarChartData mainBarData() {
-    return BarChartData(
-      barTouchData: BarTouchData(
-        enabled: false,
-        touchCallback: (barTouchResponse) {
-          setState(() {
-            if (barTouchResponse.spot != null &&
-                barTouchResponse.touchInput is! PointerUpEvent &&
-                barTouchResponse.touchInput is! PointerExitEvent) {
-              touchedIndex = barTouchResponse.spot!.touchedBarGroupIndex;
-            } else {
-              touchedIndex = -1;
-            }
-          });
-        },
-      ),
-      titlesData: FlTitlesData(
-        bottomTitles: SideTitles(
-          showTitles: true,
-          getTextStyles: (value) => const TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 14),
-          margin: 16,
-        ),
-        leftTitles: SideTitles(showTitles: false),
-      ),
-      borderData: FlBorderData(show: false),
-      barGroups: showingGroups(),
-    );
-  }
-
 }
