@@ -12,6 +12,8 @@ class BarChartPage extends StatelessWidget {
         children: <Widget>[
           BarChartSample1(),
           mine2(),
+          Text('------------------------------------',
+            style: TextStyle(color: Colors.black),),
         ],
       ),
     );
